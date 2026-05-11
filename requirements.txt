@@ -1,0 +1,5 @@
+customtkinter
+yt-dlp
+imageio-ffmpeg
+mutagen
+pyinstaller

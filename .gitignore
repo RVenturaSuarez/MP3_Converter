@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+venv/
+
+# PyInstaller
+build/
+dist/
+*.spec
+*.exe
+
+# FFmpeg (solo para build)
+ffmpeg/
