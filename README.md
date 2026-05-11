@@ -1,8 +1,8 @@
 # MP3 Converter
 
-[![Release](https://img.shields.io/github/v/release/Nebsan/MP3_Converter?color=blue)](https://github.com/Nebsan/MP3_Converter/releases/latest)
+[![Release](https://img.shields.io/github/v/release/RVenturaSuarez/MP3_Converter?color=blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/Nebsan/MP3_Converter/releases/latest)
+[![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
 
 Convierte videos de YouTube a MP3 en un clic. Portable, sin instalacion.
 
@@ -10,7 +10,7 @@ Convierte videos de YouTube a MP3 en un clic. Portable, sin instalacion.
 
 ## Descargar (1 clic)
 
-**[Descargar MP3_Converter.exe](https://github.com/Nebsan/MP3_Converter/releases/latest/download/MP3_Converter.exe)**
+**[Descargar MP3_Converter.exe](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest/download/MP3_Converter.exe)**
 
 Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 
