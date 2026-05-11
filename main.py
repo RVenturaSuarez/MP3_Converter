@@ -63,18 +63,24 @@ class TubeGetApp(ctk.CTk):
                                           font=ctk.CTkFont(size=12), command=self._on_formato_change)
         self.fmt_mp4.pack(side="left")
 
-        # --- Calidad (radio buttons) ---
+        # --- Calidad (dos grupos de radio buttons, uno por formato) ---
         ctk.CTkLabel(main, text="Calidad", font=ctk.CTkFont(size=12), anchor="w").pack(fill="x")
-        qual_row = ctk.CTkFrame(main, fg_color="transparent")
-        qual_row.pack(fill="x", pady=(2, 14))
+        self.qual_row = ctk.CTkFrame(main, fg_color="transparent")
+        self.qual_row.pack(fill="x", pady=(2, 14))
 
-        self.qual_var = ctk.StringVar(value="192")
-        self._qual_radios = []
+        self.qual_mp3_var = ctk.StringVar(value="192")
+        self.mp3_qual_frame = ctk.CTkFrame(self.qual_row, fg_color="transparent")
         for texto, val in [("128 kbps", "128"), ("192 kbps", "192"), ("256 kbps", "256"), ("320 kbps", "320")]:
-            rb = ctk.CTkRadioButton(qual_row, text=texto, variable=self.qual_var, value=val,
-                                    font=ctk.CTkFont(size=12))
-            rb.pack(side="left", padx=(0, 12))
-            self._qual_radios.append(rb)
+            ctk.CTkRadioButton(self.mp3_qual_frame, text=texto, variable=self.qual_mp3_var, value=val,
+                               font=ctk.CTkFont(size=12)).pack(side="left", padx=(0, 12))
+
+        self.qual_mp4_var = ctk.StringVar(value="720")
+        self.mp4_qual_frame = ctk.CTkFrame(self.qual_row, fg_color="transparent")
+        for texto, val in [("360p", "360"), ("720p", "720"), ("1080p", "1080")]:
+            ctk.CTkRadioButton(self.mp4_qual_frame, text=texto, variable=self.qual_mp4_var, value=val,
+                               font=ctk.CTkFont(size=12)).pack(side="left", padx=(0, 12))
+
+        self.mp3_qual_frame.pack(fill="x")
 
         # --- Checkboxes ---
         self.thumbnail_var = ctk.BooleanVar(value=True)
@@ -136,24 +142,13 @@ class TubeGetApp(ctk.CTk):
     #  Formato change
     # ==================================================================
     def _on_formato_change(self):
-        es_mp4 = self.fmt_var.get() == "mp4"
-        labels = [("360p", "360"), ("720p", "720"), ("1080p", "1080")] if es_mp4 else \
-                 [("128 kbps", "128"), ("192 kbps", "192"), ("256 kbps", "256"), ("320 kbps", "320")]
-
-        self.qual_var.set("")
-
-        for i, rb in enumerate(self._qual_radios):
-            if i < len(labels):
-                rb.configure(text=labels[i][0], value=labels[i][1])
-                rb.pack(side="left", padx=(0, 12))
-            else:
-                rb.pack_forget()
-
-        self.qual_var.set(labels[1][1])
-
-        if es_mp4:
+        if self.fmt_var.get() == "mp4":
+            self.mp3_qual_frame.pack_forget()
+            self.mp4_qual_frame.pack(fill="x")
             self.thumb_check.pack_forget()
         else:
+            self.mp4_qual_frame.pack_forget()
+            self.mp3_qual_frame.pack(fill="x")
             self.thumb_check.pack(anchor="w", pady=2, before=self.playlist_check)
 
     # ==================================================================
@@ -173,24 +168,28 @@ class TubeGetApp(ctk.CTk):
     # ==================================================================
     def _lock_controls(self):
         for w in (self.url_entry, self.folder_entry, self.browse_btn,
-                  self.fmt_mp3, self.fmt_mp4, *self._qual_radios,
+                  self.fmt_mp3, self.fmt_mp4,
                   self.thumb_check, self.playlist_check):
-            try:
-                w.configure(state="disabled")
-            except Exception:
-                pass
+            try: w.configure(state="disabled")
+            except Exception: pass
+        for f in (self.mp3_qual_frame, self.mp4_qual_frame):
+            for w in f.winfo_children():
+                try: w.configure(state="disabled")
+                except Exception: pass
         self.download_btn.configure(state="disabled", text="DESCARGANDO...")
         self.cancel_btn.pack(side="left", padx=(0, 10))
         self.cancel_btn.configure(state="normal", text="CANCELAR")
 
     def _unlock_controls(self):
         for w in (self.url_entry, self.folder_entry, self.browse_btn,
-                  self.fmt_mp3, self.fmt_mp4, *self._qual_radios,
+                  self.fmt_mp3, self.fmt_mp4,
                   self.thumb_check, self.playlist_check):
-            try:
-                w.configure(state="normal")
-            except Exception:
-                pass
+            try: w.configure(state="normal")
+            except Exception: pass
+        for f in (self.mp3_qual_frame, self.mp4_qual_frame):
+            for w in f.winfo_children():
+                try: w.configure(state="normal")
+                except Exception: pass
         self.download_btn.configure(state="normal", text="DESCARGAR")
         self.cancel_btn.pack_forget()
 
@@ -245,7 +244,7 @@ class TubeGetApp(ctk.CTk):
             return
 
         formato = self.fmt_var.get()
-        calidad = self.qual_var.get()
+        calidad = self.qual_mp4_var.get() if formato == "mp4" else self.qual_mp3_var.get()
         incluir_caratula = self.thumbnail_var.get()
         descargar_lista = self.playlist_var.get()
 
