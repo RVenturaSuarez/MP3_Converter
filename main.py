@@ -140,6 +140,8 @@ class TubeGetApp(ctk.CTk):
         labels = [("360p", "360"), ("720p", "720"), ("1080p", "1080")] if es_mp4 else \
                  [("128 kbps", "128"), ("192 kbps", "192"), ("256 kbps", "256"), ("320 kbps", "320")]
 
+        self.qual_var.set("")
+
         for i, rb in enumerate(self._qual_radios):
             if i < len(labels):
                 rb.configure(text=labels[i][0], value=labels[i][1])

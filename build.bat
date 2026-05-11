@@ -26,7 +26,7 @@ if exist dist  rmdir /s /q dist
 if exist *.spec del /q *.spec
 
 echo [4/4] Generando EXE portable...
-python -m PyInstaller --onefile --windowed --name "MP3_Converter" ^
+python -m PyInstaller --onefile --windowed --name "TubeGet" ^
     --add-binary "ffmpeg\\ffmpeg.exe;ffmpeg" ^
     --hidden-import customtkinter ^
     --hidden-import yt_dlp ^

@@ -73,7 +73,7 @@ def descargar(url, output_path, formato="mp3", calidad="192",
 
     if formato == "mp4":
         ydl_opts = {
-            'format': f'bestvideo[height<={calidad}]+bestaudio/best[height<={calidad}]',
+            'format': f'best[height<={calidad}]',
             'merge_output_format': 'mp4',
             'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
             'progress_hooks': [_hook],
