@@ -1,36 +1,53 @@
 # MP3 Converter
 
-Converti videos de YouTube a MP3 en un click. Con caratula, metadatos y calidad seleccionable.
+[![Release](https://img.shields.io/github/v/release/Nebsan/MP3_Converter?color=blue)](https://github.com/Nebsan/MP3_Converter/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/Nebsan/MP3_Converter/releases/latest)
+
+Convierte videos de YouTube a MP3 en un clic. Portable, sin instalacion.
+
+---
+
+## Descargar (1 clic)
+
+**[Descargar MP3_Converter.exe](https://github.com/Nebsan/MP3_Converter/releases/latest/download/MP3_Converter.exe)**
+
+Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
+
+---
 
 ## Caracteristicas
 
-- Extrae audio de cualquier video de YouTube y lo convierte a MP3
+- Extrae audio de YouTube y lo convierte a MP3
 - **Caratula incrustada** en el archivo (miniatura del video como portada)
-- **Metadatos** automaticos: titulo, artista, album
 - **Calidad seleccionable**: 128, 192, 256 o 320 kbps
-- Barra de progreso en tiempo real
+- **Soporte para playlists** completas
+- **Cancelar** descarga en cualquier momento
+- **Metadatos** automaticos: titulo, artista, album
+- Barra de progreso en tiempo real con velocidad de descarga
 - Modo oscuro, interfaz moderna
-- **Portable**: un solo .exe, sin instalar nada
+- **Portable**: un solo .exe, no requiere instalacion
 
 ## Como usar
 
-1. Descarga **MP3_Converter.exe** de la seccion [Releases](https://github.com/tuusuario/MP3_Converter/releases)
-2. Hace doble clic (no requiere instalacion)
+1. Descarga el .exe del enlace de arriba
+2. Doble clic (no requiere instalacion)
 3. Pega el link del video de YouTube
-4. Opcional: elegi carpeta de destino y calidad
-5. Click en **DESCARGAR MP3**
-6. El archivo MP3 aparece en la carpeta elegida, con la portada del video
+4. Elige calidad y carpeta de destino (opcional)
+5. Clic en **DESCARGAR MP3**
 
-### Opciones
+El archivo MP3 aparece en la carpeta elegida con la portada del video incluida.
 
-| Calidad         | Tamano (~3 min) | Recomendacion         |
-|-----------------|----------------|-----------------------|
-| 128 kbps        | ~3 MB           | Solo si falta espacio |
-| 192 kbps        | ~4 MB           | **Recomendado**       |
-| 256 kbps        | ~6 MB           | Para audiofilos       |
-| 320 kbps        | ~8 MB           | Maxima calidad        |
+### Calidades disponibles
 
-## Requisitos (solo para desarrollo)
+| Calidad | Tamano (~3 min) | Recomendacion |
+|---|---|---|
+| 128 kbps | ~3 MB | Solo si falta espacio |
+| **192 kbps** | ~4 MB | **Recomendado** |
+| 256 kbps | ~6 MB | Para audiofilos |
+| 320 kbps | ~8 MB | Maxima calidad |
+
+## Desarrollo
 
 Si queres modificar el codigo o reconstruir el .exe:
 
@@ -39,9 +56,9 @@ pip install -r requirements.txt
 python main.py
 
 # Para generar el .exe portable:
-.\build.bat
+build.bat
 ```
 
 ## Licencia
 
-MIT -- usa, modifica y comparti libremente.
+MIT — libre para usar, modificar y compartir. Ver [LICENSE](LICENSE).
