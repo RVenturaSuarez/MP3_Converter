@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    MP3 Converter - Build Portable EXE
+echo    TubeGet - Build Portable EXE
 echo ========================================
 echo.
 
@@ -35,7 +35,7 @@ python -m PyInstaller --onefile --windowed --name "TubeGet" ^
 if %errorlevel% equ 0 (
     echo.
     echo ========================================
-    echo    EXE generado en: dist\MP3_Converter.exe
+    echo    EXE generado en: dist\TubeGet.exe
     echo ========================================
 ) else (
     echo ERROR: Fallo al generar el EXE.

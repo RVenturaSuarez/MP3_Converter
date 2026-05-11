@@ -1,8 +1,8 @@
 # TubeGet
 
-[![Release](https://img.shields.io/github/v/release/RVenturaSuarez/MP3_Converter?color=blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
+[![Release](https://img.shields.io/github/v/release/RVenturaSuarez/TubeGet?color=blue)](https://github.com/RVenturaSuarez/TubeGet/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
+[![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/RVenturaSuarez/TubeGet/releases/latest)
 
 Convierte videos de YouTube a MP3 o MP4 en un clic. Portable, sin instalacion.
 
@@ -10,7 +10,7 @@ Convierte videos de YouTube a MP3 o MP4 en un clic. Portable, sin instalacion.
 
 ## Descargar (1 clic)
 
-**[Descargar TubeGet.exe](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest/download/TubeGet.exe)**
+**[Descargar TubeGet.exe](https://github.com/RVenturaSuarez/TubeGet/releases/latest/download/TubeGet.exe)**
 
 Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 
