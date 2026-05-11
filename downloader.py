@@ -84,8 +84,8 @@ def descargar(url, output_path, formato="mp3", calidad="192",
         }
     else:
         postprocessors = [
-            {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': calidad},
-            {'key': 'FFmpegMetadata'},
+            {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': f'{calidad}k'},
+            {'key': 'FFmpegMetadata', 'postprocessor_args': {'id3v2_version': '3'}},
         ]
         if incluir_caratula and _tiene_mutagen():
             postprocessors.append({'key': 'EmbedThumbnail'})

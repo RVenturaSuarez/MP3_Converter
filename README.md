@@ -1,16 +1,16 @@
-# MP3 Converter
+# TubeGet
 
 [![Release](https://img.shields.io/github/v/release/RVenturaSuarez/MP3_Converter?color=blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest)
 
-Convierte videos de YouTube a MP3 en un clic. Portable, sin instalacion.
+Convierte videos de YouTube a MP3 o MP4 en un clic. Portable, sin instalacion.
 
 ---
 
 ## Descargar (1 clic)
 
-**[Descargar MP3_Converter.exe](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest/download/MP3_Converter.exe)**
+**[Descargar TubeGet.exe](https://github.com/RVenturaSuarez/MP3_Converter/releases/latest/download/TubeGet.exe)**
 
 Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 
@@ -18,14 +18,13 @@ Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 
 ## Caracteristicas
 
-- Extrae audio de YouTube y lo convierte a MP3
-- **Caratula incrustada** en el archivo (miniatura del video como portada)
-- **Calidad seleccionable**: 128, 192, 256 o 320 kbps
-- **Soporte para playlists** completas
+- Extrae audio a **MP3** con caratula y metadatos
+- Descarga **MP4** con resolucion 360p / 720p / 1080p
+- Calidad MP3: 128 / 192 / 256 / 320 kbps
+- Soporte para **playlists** completas
 - **Cancelar** descarga en cualquier momento
-- **Metadatos** automaticos: titulo, artista, album
-- Barra de progreso en tiempo real con velocidad de descarga
-- Modo oscuro, interfaz moderna
+- Barra de progreso en tiempo real
+- Modo oscuro, todas las opciones visibles sin desplegables
 - **Portable**: un solo .exe, no requiere instalacion
 
 ## Como usar
@@ -33,19 +32,11 @@ Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 1. Descarga el .exe del enlace de arriba
 2. Doble clic (no requiere instalacion)
 3. Pega el link del video de YouTube
-4. Elige calidad y carpeta de destino (opcional)
-5. Clic en **DESCARGAR MP3**
+4. Selecciona MP3 o MP4 con los radio buttons
+5. Elige calidad
+6. Clic en **DESCARGAR**
 
-El archivo MP3 aparece en la carpeta elegida con la portada del video incluida.
-
-### Calidades disponibles
-
-| Calidad | Tamano (~3 min) | Recomendacion |
-|---|---|---|
-| 128 kbps | ~3 MB | Solo si falta espacio |
-| **192 kbps** | ~4 MB | **Recomendado** |
-| 256 kbps | ~6 MB | Para audiofilos |
-| 320 kbps | ~8 MB | Maxima calidad |
+El archivo aparece en tu carpeta de musica con caratula incluida (MP3).
 
 ## Desarrollo
 
