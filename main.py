@@ -3,18 +3,28 @@ import re
 import threading
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from downloader import descargar_mp3
+from downloader import descargar
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-CALIDADES = [
+FORMATOS = ["MP3 (solo audio)", "MP4 (video)"]
+FORMATO_MAP = {"MP3 (solo audio)": "mp3", "MP4 (video)": "mp4"}
+
+CALIDADES_MP3 = [
     "128 kbps (ligero)",
     "192 kbps (recomendado)",
     "256 kbps (alto)",
     "320 kbps (maximo)",
 ]
-CALIDAD_MAP = {c: c.split()[0] for c in CALIDADES}
+CALIDADES_MP4 = [
+    "360p (baja)",
+    "720p (HD)",
+    "1080p (Full HD)",
+]
+CALIDAD_MP3_MAP = {c: c.split()[0] for c in CALIDADES_MP3}
+CALIDAD_MP4_MAP = {c: c.split("p")[0] for c in CALIDADES_MP4}
+
 PLAYLIST_RE = re.compile(r"[&?]list=")
 
 
@@ -57,9 +67,16 @@ class MP3ConverterApp(ctk.CTk):
         self.browse_btn = ctk.CTkButton(frow, text="Examinar", width=100, command=self._elegir_carpeta)
         self.browse_btn.pack(side="left", padx=(8, 0))
 
+        # Format
+        ctk.CTkLabel(main, text="Formato", font=ctk.CTkFont(size=12), anchor="w").pack(fill="x")
+        self.format_combo = ctk.CTkComboBox(main, values=FORMATOS, state="readonly", height=32,
+                                            command=self._on_formato_change)
+        self.format_combo.set("MP3 (solo audio)")
+        self.format_combo.pack(fill="x", pady=(2, 12))
+
         # Quality
         ctk.CTkLabel(main, text="Calidad", font=ctk.CTkFont(size=12), anchor="w").pack(fill="x")
-        self.quality_combo = ctk.CTkComboBox(main, values=CALIDADES, state="readonly", height=32)
+        self.quality_combo = ctk.CTkComboBox(main, values=CALIDADES_MP3, state="readonly", height=32)
         self.quality_combo.set("192 kbps (recomendado)")
         self.quality_combo.pack(fill="x", pady=(2, 12))
 
@@ -87,7 +104,7 @@ class MP3ConverterApp(ctk.CTk):
         btn_row = ctk.CTkFrame(main, fg_color="transparent")
         btn_row.pack(pady=(16, 10))
         self.download_btn = ctk.CTkButton(
-            btn_row, text="DESCARGAR MP3", height=44, width=200,
+            btn_row, text="DESCARGAR", height=44, width=200,
             font=ctk.CTkFont(size=14, weight="bold"), command=self._iniciar_descarga,
         )
         self.download_btn.pack(side="left", padx=(0, 10))
@@ -97,7 +114,7 @@ class MP3ConverterApp(ctk.CTk):
             fg_color="#c0392b", hover_color="#e74c3c", command=self._cancelar_descarga,
         )
 
-        # ---- Completion panel (below buttons, hidden initially) ----
+        # ---- Completion panel ----
         self.comp_container = ctk.CTkFrame(main, fg_color="transparent")
 
         sep = ctk.CTkFrame(self.comp_container, height=1, fg_color="#333333")
@@ -120,6 +137,19 @@ class MP3ConverterApp(ctk.CTk):
                       command=self._copiar_ruta_resultado).pack(side="left")
 
     # ==================================================================
+    #  Formato change
+    # ==================================================================
+    def _on_formato_change(self, choice):
+        if FORMATO_MAP.get(choice) == "mp4":
+            self.quality_combo.configure(values=CALIDADES_MP4)
+            self.quality_combo.set("720p (HD)")
+            self.thumb_check.pack_forget()
+        else:
+            self.quality_combo.configure(values=CALIDADES_MP3)
+            self.quality_combo.set("192 kbps (recomendado)")
+            self.thumb_check.pack(anchor="w", pady=2, before=self.playlist_check)
+
+    # ==================================================================
     #  URL detection
     # ==================================================================
     def _bind_url_detection(self):
@@ -136,24 +166,25 @@ class MP3ConverterApp(ctk.CTk):
     # ==================================================================
     def _lock_controls(self):
         for w in (self.url_entry, self.folder_entry, self.browse_btn,
-                  self.quality_combo, self.thumb_check, self.playlist_check):
+                  self.format_combo, self.quality_combo, self.thumb_check, self.playlist_check):
             try:
                 w.configure(state="disabled")
             except Exception:
                 pass
         self.download_btn.configure(state="disabled", text="DESCARGANDO...")
-        self.cancel_btn.pack(side="left", padx=(0, 10))  # ensure visible
+        self.cancel_btn.pack(side="left", padx=(0, 10))
         self.cancel_btn.configure(state="normal", text="CANCELAR")
 
     def _unlock_controls(self):
         for w in (self.url_entry, self.folder_entry, self.browse_btn,
-                  self.quality_combo, self.thumb_check, self.playlist_check):
+                  self.format_combo, self.quality_combo, self.thumb_check, self.playlist_check):
             try:
                 w.configure(state="normal")
             except Exception:
                 pass
+        self.format_combo.configure(state="readonly")
         self.quality_combo.configure(state="readonly")
-        self.download_btn.configure(state="normal", text="DESCARGAR MP3")
+        self.download_btn.configure(state="normal", text="DESCARGAR")
         self.cancel_btn.pack_forget()
 
     # ==================================================================
@@ -182,7 +213,7 @@ class MP3ConverterApp(ctk.CTk):
         fila.pack(fill="x", pady=1)
         ctk.CTkLabel(fila, text=f"{self._completions_count}.", width=32,
                      font=ctk.CTkFont(size=11), text_color="#4caf50").pack(side="left")
-        ctk.CTkLabel(fila, text=f"{titulo}.mp3", font=ctk.CTkFont(size=11),
+        ctk.CTkLabel(fila, text=f"{titulo}.{os.path.splitext(ruta)[1][1:]}", font=ctk.CTkFont(size=11),
                      anchor="w").pack(side="left", fill="x", expand=True)
 
     # ==================================================================
@@ -206,7 +237,12 @@ class MP3ConverterApp(ctk.CTk):
             messagebox.showwarning("Carpeta invalida", "La carpeta de destino no existe.")
             return
 
-        calidad = CALIDAD_MAP.get(self.quality_combo.get(), "192")
+        formato = FORMATO_MAP.get(self.format_combo.get(), "mp3")
+        if formato == "mp3":
+            calidad = CALIDAD_MP3_MAP.get(self.quality_combo.get(), "192")
+        else:
+            calidad = CALIDAD_MP4_MAP.get(self.quality_combo.get(), "720")
+
         incluir_caratula = self.thumbnail_var.get()
         descargar_lista = self.playlist_var.get()
 
@@ -220,8 +256,8 @@ class MP3ConverterApp(ctk.CTk):
         self.progress_bar.set(0)
 
         thread = threading.Thread(
-            target=descargar_mp3,
-            args=(url, output, calidad),
+            target=descargar,
+            args=(url, output, formato, calidad),
             kwargs={
                 "incluir_caratula": incluir_caratula,
                 "descargar_lista": descargar_lista,
@@ -282,7 +318,7 @@ class MP3ConverterApp(ctk.CTk):
             if pl_idx is not None and pl_count:
                 self.status_label.configure(text=f"Procesando video {pl_idx}/{pl_count}...", text_color="#aaaaaa")
             else:
-                self.status_label.configure(text="Convirtiendo a MP3...", text_color="#aaaaaa")
+                self.status_label.configure(text="Procesando...", text_color="#aaaaaa")
 
     def _on_item_done(self, idx, total, titulo, ruta):
         self.after(0, self._add_completion, idx, total, titulo, ruta)
