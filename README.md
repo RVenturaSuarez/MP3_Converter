@@ -4,7 +4,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Windows](https://img.shields.io/badge/Windows-10%2B-blue)](https://github.com/RVenturaSuarez/TubeGet/releases/latest)
 
-Convierte videos de YouTube a MP3 o MP4 en un clic. Portable, sin instalacion.
+Convierte videos a MP3 o MP4 en un clic. Portable, sin instalacion.
+
+> **Aviso legal**: TubeGet es una herramienta de uso personal y educativo.
+> No esta afiliado con YouTube ni Google. Los usuarios son responsables
+> de respetar los terminos de servicio de cada plataforma y las leyes
+> de copyright aplicables. Solo debe usarse para descargar contenido
+> propio o con permiso explicito del titular de los derechos.
 
 ---
 
@@ -38,6 +44,13 @@ Un solo archivo. Doble clic y listo. No requiere Python, FFmpeg ni nada.
 
 El archivo aparece en tu carpeta de musica con caratula incluida (MP3).
 
+## Uso responsable
+
+- Descarga solo contenido propio, sin copyright o con licencia Creative Commons
+- Respeta los terminos de servicio de cada plataforma
+- No redistribuyas contenido con copyright sin autorizacion
+- Esta herramienta es para **uso personal y legitimo**
+
 ## Desarrollo
 
 Si queres modificar el codigo o reconstruir el .exe:
@@ -49,6 +62,12 @@ python main.py
 # Para generar el .exe portable:
 build.bat
 ```
+
+## Avisos
+
+- TubeGet es un frontend para [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+- No afiliado con YouTube, Google ni ninguna plataforma de streaming
+- Los nombres de productos y marcas pertenecen a sus respectivos duenos
 
 ## Licencia
 
