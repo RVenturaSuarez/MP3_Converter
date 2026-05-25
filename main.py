@@ -15,7 +15,7 @@ class TubeGetApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("TubeGet")
-        self.geometry("750x640")
+        self.geometry("750x720")
         self.resizable(False, False)
 
         self._descargando = False
